@@ -1,0 +1,40 @@
+<form class="card col-6 offset-3 mt-2"  [formGroup]="newClientFomrGroup" (submit)="saveClient(newClientFomrGroup)">
+  <div class="card-header"> Nouveau Client</div>
+  <div class="card-body">
+  <div class="mb-3">
+    <label  class="col-form-label">Nom</label>
+    <input type="text" class="form-control" id="nom" formControlName="nomClient" >
+    <span class="text-danger"
+          *ngIf="newClientFomrGroup.controls['nomClient'].touched
+                && newClientFomrGroup.controls['nomClient'].errors
+                && newClientFomrGroup.controls['nomClient'].errors!['required']">
+    Nom est obligatoire
+    </span>
+  </div>
+  <div class="mb-3">
+    <label class="col-form-label">Prénom</label>
+    <input type="text" class="form-control" id="prenom" formControlName="prenomClient">
+  </div>
+  <div class="mb-3">
+    <label  class="col-form-label">Login</label>
+    <input type="text" class="form-control" formControlName="login" >
+    <span class="text-danger"
+          *ngIf="newClientFomrGroup.controls['login'].touched
+                && newClientFomrGroup.controls['login'].errors
+                && newClientFomrGroup.controls['login'].errors!['required']">
+    Le login est obligatoire
+    </span>
+  </div>
+  <div class="mb-3">
+    <label class="col-form-label">Email</label>
+    <input type="email" class="form-control" formControlName="email">
+    <span class="text-danger"
+          *ngIf="newClientFomrGroup.controls['email'].touched
+                && newClientFomrGroup.controls['email'].errors
+                && newClientFomrGroup.controls['email'].errors!['required']">
+    L'email est obligatoire
+    </span>
+  </div>
+  <button type="submit" [disabled]="!newClientFomrGroup.valid"  class="btn btn-primary">Submit</button>
+  </div>
+</form>

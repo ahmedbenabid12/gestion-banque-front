@@ -1,0 +1,67 @@
+<div class="container">
+
+
+
+  <ng-container *ngIf="comptes$">
+    <table class="table">
+      <thead>
+      <tr>
+        <th>RIB</th>
+        <th>Solde Actuel</th>
+        <th>date de création</th>
+        <th>Depot</th>
+        <th>Retrait</th>
+        <th>Extrait</th>
+      </tr>
+
+      </thead>
+      <tbody>
+      <tr *ngFor = "let compte of comptes$ | async">
+        <td>{{compte.rib}}</td>
+        <td>{{compte.solde | number}}</td>
+        <td>{{compte.dateCreation}}</td>
+        <td>
+          <a class="nav-link active" aria-current="page" (click)="open(depotRetrait,compte.rib,'DEPOT')" >
+            <i class="bi bi-box-arrow-in-up"></i>
+          </a>
+        </td>
+        <td>
+          <a class="nav-link active" aria-current="page"  (click)="open(depotRetrait,compte.rib,'RETRAIT')" >
+            <i class="bi bi-box-arrow-in-down"></i>
+          </a>
+        </td>
+        <td>
+          <a class="nav-link active" aria-current="page" (click)="afficherExtrait(compte.rib)">
+            <i class="bi bi-eye"></i>
+          </a>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </ng-container>
+
+</div>
+
+
+<ng-template #depotRetrait let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Operation</h4>
+    <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+  </div>
+  <div class="modal-body">
+    <form [formGroup]="depotFormGroup" >
+      <div class="mb-3">
+        <label >Montant de l'opration</label>
+        <div class="input-group">
+          <input type="number"  class="form-control me-2"  formControlName="montantOperation"/>
+        </div>
+      </div>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-dark" (click)="saveOperation(depotFormGroup)">Save</button>
+  </div>
+</ng-template>
+
+
+

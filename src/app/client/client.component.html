@@ -1,0 +1,49 @@
+<div class="container">
+
+  <div>
+  <form [formGroup]="seachFormGroupe"  class="d-flex">
+      <div class="input-group">
+        <input type="search" class="form-control me-2" placeholder="Rechercher un client" formControlName="nom">
+        <button class="btn btn-outline-success" type="submit" (click)="searchClients(seachFormGroupe)">
+          <i class="bi bi-search"></i>
+        </button>
+      </div>
+    </form>
+  </div>
+<div style="margin-bottom: 20px ; margin-top: 20px">
+  <a class="nav-link active" aria-current="page" routerLink="/newclient">
+    <i class="bi bi-person-add"></i> Ajouter un client
+  </a>
+</div>
+
+    <ng-container *ngIf="clients$">
+      <table class="table">
+        <thead>
+        <tr>
+          <th>ID</th>
+          <th>nom client</th>
+          <th>Prénom client</th>
+          <th>E-mail</th>
+          <th>Comptes</th>
+        </tr>
+
+        </thead>
+        <tbody>
+        <tr *ngFor = "let client of clients$ | async">
+          <td>{{client.idClient}}</td>
+          <td>{{client.nomClient}}</td>
+          <td>{{client.prenomClient}}</td>
+          <td>{{client.email}}</td>
+          <td>
+            <a class="nav-link active" aria-current="page" (click)="listeComptesClient(client.idClient)">
+              <i class="bi bi-coin"></i>
+            </a>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+    </ng-container>
+  <ng-container *ngIf="!clients$">
+      <p>aucun client dans la BD</p>
+  </ng-container>
+</div>

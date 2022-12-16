@@ -1,0 +1,35 @@
+<div class="container">
+
+
+
+  <ng-container *ngIf="historiqueOperation$ | async as accountDetails">
+    <table class="table">
+      <thead>
+      <tr>
+        <th>Num Opération</th>
+        <th>Date Operation</th>
+        <th>Montant Operation</th>
+        <th>Type Operation</th>
+      </tr>
+
+      </thead>
+      <tbody>
+      <tr *ngFor = "let operation of accountDetails.operationDTOList " >
+        <td>{{operation.idOperation}}</td>
+        <td>{{operation.dateOperation }}</td>
+        <td>{{operation.montantOperation | number }}</td>
+        <td>{{operation.typeOperation}}</td>
+      </tr>
+      </tbody>
+    </table>
+    <ul class="nav nav-pills">
+      <li *ngFor="let item of [].constructor(accountDetails.totalPages);let page=index">
+        <a class="btn btn-outline-info ms-1 mt-1"
+           (click)="goToPage(page)"
+          [ngClass]="currentPage==page?'btn-info':'btn-outline-info' " style="color: black">{{page}}</a>
+      </li>
+    </ul>
+  </ng-container>
+
+
+</div>
